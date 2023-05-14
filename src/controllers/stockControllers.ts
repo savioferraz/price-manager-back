@@ -6,7 +6,7 @@ export async function validatePrices(req: Request, res: Response) {
   try {
     const csvFile = req.file;
 
-    const result = stockServices.validatePrices(csvFile);
+    const result = await stockServices.validatePrices(csvFile);
 
     return res.status(200).send(result);
   } catch (error) {

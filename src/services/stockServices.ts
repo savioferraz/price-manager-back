@@ -10,7 +10,7 @@ async function validatePrices(csvFile: any) {
   for (const csvProduct of await parsedCsv) {
     const { product_code, new_price } = csvProduct;
 
-    const dbProduct = products.find((product) => product.code === product_code);
+    const dbProduct = products.find((product) => product.code == product_code);
 
     const salesPrice = Number(dbProduct.sales_price);
     const costPrice = Number(dbProduct.cost_price);
@@ -32,11 +32,9 @@ async function validatePrices(csvFile: any) {
         status: "OK",
       });
     }
-
-    return validateProducts;
   }
-
-  return "ok";
+  console.log(validateProducts);
+  return validateProducts;
 }
 
 async function updatePrices() {
