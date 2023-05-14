@@ -1,16 +1,14 @@
-import csvParser from "csv-parser";
+import fs from "fs";
+import csv from "csv-parser";
 
-export async function formatCSV(csvFile: any) {
-  const formatedData: any[] = [];
+export function formatCSV(csvFile: any) {
+  return new Promise<any[]>((resolve, reject) => {
+    const formatedData: any[] = [];
 
-  csvFile.pipe(csvParser()).on("data", (row: any) => {
-    const formatedRow = {
-      product_code: row.product_code.trim(),
-      new_price: parseFloat(row.new_price.trim()),
-    };
-
-    formatedData.push(formatedRow);
+    fs.createReadStream(csvFile.path)
+      .pipe(csv())
+      .on("data", (data) => formatedData.push(data))
+      .on("end", () => resolve(formatedData))
+      .on("error", (error) => reject(error));
   });
-
-  return formatedData;
 }

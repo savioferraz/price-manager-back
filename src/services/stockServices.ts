@@ -17,13 +17,13 @@ async function validatePrices(csvFile: any) {
     const newPrice = Number(new_price);
 
     if (newPrice < costPrice) {
-      validateProducts.push({ product_code: product_code, new_price: newPrice, status: "Abaixo do preço de custo" });
+      validateProducts.push({ product_code: product_code, new_price: newPrice, status: "BELOW_COST" });
     }
     if (newPrice > salesPrice * 1.1 || newPrice < salesPrice * 0.9) {
       validateProducts.push({
         product_code: product_code,
         new_price: newPrice,
-        status: "Não pode ser maior ou menor que 10%",
+        status: "OUT_OF_RANGE",
       });
     } else {
       validateProducts.push({
