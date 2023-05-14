@@ -1,6 +1,6 @@
 import httpStatus from "http-status";
 import { Request, Response } from "express";
-import stockServices from "@/services/stockServices";
+import stockServices from "../services/stockServices";
 
 export async function validatePrices(req: Request, res: Response) {
   try {

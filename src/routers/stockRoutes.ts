@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as stockControllers from "../controllers/stockControllers";
-import uploadMiddleware from "@/middlewares/uploadMiddleware";
+import uploadMiddleware from "../middlewares/uploadMiddleware";
 
 const stockRoutes = Router();
 

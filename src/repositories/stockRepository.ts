@@ -1,4 +1,4 @@
-import { prisma } from "@/database/db";
+import { prisma } from "../database/db";
 
 async function getPrices() {
   const result = prisma.products.findMany({});

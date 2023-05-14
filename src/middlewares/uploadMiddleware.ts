@@ -1,4 +1,4 @@
-import { invalidFileFormatError } from "@/errors/errors";
+import { invalidFileFormatError } from "../errors/errors";
 import multer from "multer";
 
 const uploadMiddleware = multer({

@@ -1,5 +1,5 @@
-import stockRepository from "@/repositories/stockRepository";
-import { formatCSV } from "@/utils/formatCSV";
+import stockRepository from "../repositories/stockRepository";
+import { formatCSV } from "../utils/formatCSV";
 
 async function validatePrices(csvFile: any) {
   const products = await stockRepository.getPrices();
@@ -7,7 +7,7 @@ async function validatePrices(csvFile: any) {
 
   const validateProducts = [];
 
-  for (const csvProduct of parsedCsv) {
+  for (const csvProduct of await parsedCsv) {
     const { product_code, new_price } = csvProduct;
 
     const dbProduct = products.find((product) => product.code === product_code);
