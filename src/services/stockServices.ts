@@ -15,23 +15,22 @@ async function validatePrices(csvFile: any) {
     const salesPrice = Number(dbProduct.sales_price);
     const costPrice = Number(dbProduct.cost_price);
     const newPrice = Number(new_price);
+    const diff = (newPrice * 100) / salesPrice - 100;
 
-    if (newPrice < costPrice) {
-      validateProducts.push({ product_code: product_code, new_price: newPrice, status: "BELOW_COST" });
-    }
-    if (newPrice > salesPrice * 1.1 || newPrice < salesPrice * 0.9) {
-      validateProducts.push({
-        product_code: product_code,
-        new_price: newPrice,
-        status: "OUT_OF_RANGE",
-      });
-    } else {
-      validateProducts.push({
-        product_code: product_code,
-        new_price: newPrice,
-        status: "OK",
-      });
-    }
+    const status = (costPrice: number, newPrice: number, diff: number) => {
+      if (newPrice < costPrice) return "BELOW_COST";
+      if (diff > 10 || diff < -10) return "OUT_OF_RANGE";
+      else return "OK";
+    };
+
+    validateProducts.push({
+      productCode: product_code,
+      salesPrice: salesPrice,
+      costPrice: costPrice,
+      newPrice: newPrice,
+      diff: diff,
+      status: status(costPrice, newPrice, diff),
+    });
   }
   return validateProducts;
 }
