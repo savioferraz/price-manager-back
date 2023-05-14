@@ -7,3 +7,5 @@ yarn.lock
 .vscode
 coverage
 .github
+uploads/*
+.uploads/*

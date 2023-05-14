@@ -3,11 +3,11 @@ import { formatCSV } from "../utils/formatCSV";
 
 async function validatePrices(csvFile: any) {
   const products = await stockRepository.getPrices();
-  const parsedCsv = formatCSV(csvFile);
+  const parsedCsv = await formatCSV(csvFile);
 
   const validateProducts = [];
 
-  for (const csvProduct of await parsedCsv) {
+  for (const csvProduct of parsedCsv) {
     const { product_code, new_price } = csvProduct;
 
     const dbProduct = products.find((product) => product.code == product_code);
@@ -33,7 +33,6 @@ async function validatePrices(csvFile: any) {
       });
     }
   }
-  console.log(validateProducts);
   return validateProducts;
 }
 
