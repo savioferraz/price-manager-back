@@ -10,6 +10,12 @@ async function updatePrices(dbProduct: number, newPrice: number) {
   await prisma.products.update({ where: { code: dbProduct }, data: { sales_price: newPrice } });
 }
 
-const stockRepository = { getPrices, updatePrices };
+async function getPackItens(packId: number) {
+  const result = await prisma.packs.findMany({ where: { pack_id: packId } });
+
+  return result;
+}
+
+const stockRepository = { getPrices, updatePrices, getPackItens };
 
 export default stockRepository;
