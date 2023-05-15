@@ -7,4 +7,25 @@ function invalidFileFormatError(): AplicationError {
   };
 }
 
-export { invalidFileFormatError };
+function invalidCsvHeaderError(): AplicationError {
+  return {
+    type: "invalidCsvHeaderError",
+    message: "Cabeçalhos do csv inválidos.",
+  };
+}
+
+function invalidCsvDataError(): AplicationError {
+  return {
+    type: "invalidCsvDataError",
+    message: "Dados do csv inválidos.",
+  };
+}
+
+function invalidProductCodeError(): AplicationError {
+  return {
+    type: "invalidProductCodeError",
+    message: "Código de produto inexistente.",
+  };
+}
+
+export { invalidFileFormatError, invalidCsvHeaderError, invalidCsvDataError, invalidProductCodeError };
