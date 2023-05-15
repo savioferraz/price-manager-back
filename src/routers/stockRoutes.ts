@@ -5,6 +5,6 @@ import uploadMiddleware from "../middlewares/uploadMiddleware";
 const stockRoutes = Router();
 
 stockRoutes.post("/validate", uploadMiddleware.single("csvFile"), stockControllers.validatePrices);
-stockRoutes.put("/update", stockControllers.updatePrices);
+stockRoutes.put("/update", uploadMiddleware.single("csvFile"), stockControllers.updatePrices);
 
 export default stockRoutes;

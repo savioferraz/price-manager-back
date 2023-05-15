@@ -6,8 +6,8 @@ async function getPrices() {
   return result;
 }
 
-async function updatePrices() {
-  return "ok";
+async function updatePrices(dbProduct: number, newPrice: number) {
+  await prisma.products.update({ where: { code: dbProduct }, data: { sales_price: newPrice } });
 }
 
 const stockRepository = { getPrices, updatePrices };

@@ -1,4 +1,4 @@
-import { invalidProductCodeError } from "../errors/errors";
+import { invalidPriceError, invalidProductCodeError } from "../errors/errors";
 import stockRepository from "../repositories/stockRepository";
 import { formatCSV } from "../utils/formatCSV";
 
@@ -40,8 +40,27 @@ async function validatePrices(csvFile: any) {
   return validateProducts;
 }
 
-async function updatePrices() {
-  return "ok";
+async function updatePrices(csvFile: any) {
+  const products = await stockRepository.getPrices();
+  const parsedCsv = await formatCSV(csvFile);
+
+  for (const csvProduct of parsedCsv) {
+    const { product_code, new_price } = csvProduct;
+
+    const dbProduct = products.find((product) => product.code == product_code);
+
+    if (!dbProduct) throw invalidProductCodeError();
+
+    const salesPrice = Number(dbProduct.sales_price);
+    const costPrice = Number(dbProduct.cost_price);
+    const newPrice = Number(new_price);
+
+    const diff = (newPrice * 100) / salesPrice - 100;
+
+    if (newPrice < costPrice || diff > 10 || diff < -10) throw invalidPriceError();
+
+    await stockRepository.updatePrices(Number(dbProduct.code), newPrice);
+  }
 }
 
 const stockServices = { validatePrices, updatePrices };

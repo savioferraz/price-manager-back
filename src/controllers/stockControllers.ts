@@ -24,6 +24,14 @@ export async function validatePrices(req: Request, res: Response) {
   }
 }
 
-export async function updatePrices() {
-  return "ok";
+export async function updatePrices(req: Request, res: Response) {
+  try {
+    const csvFile = req.file;
+
+    await stockServices.updatePrices(csvFile);
+
+    return res.sendStatus(200);
+  } catch (error) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
+  }
 }

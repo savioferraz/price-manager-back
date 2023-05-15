@@ -28,4 +28,17 @@ function invalidProductCodeError(): AplicationError {
   };
 }
 
-export { invalidFileFormatError, invalidCsvHeaderError, invalidCsvDataError, invalidProductCodeError };
+function invalidPriceError(): AplicationError {
+  return {
+    type: "invalidPriceError",
+    message: "Código de produto inexistente.",
+  };
+}
+
+export {
+  invalidFileFormatError,
+  invalidCsvHeaderError,
+  invalidCsvDataError,
+  invalidProductCodeError,
+  invalidPriceError,
+};
