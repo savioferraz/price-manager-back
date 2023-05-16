@@ -60,6 +60,7 @@ A API somente irá permitir a atualização no banco de dados se os novos preço
 2. O novo preço não pode ser menor que o preço de custo do produto;
 3. A diferença de preços não pode ser maior nem menor que 10% do valor original;
 4. A atualização no banco de dados somente será aceita caso TODOS os itens do csv atendam as regras;
+5. A API se encarrega de atualizar automaticamente itens vendidos em pacotes de acordo com suas quantidades.
 
 ## API
 
