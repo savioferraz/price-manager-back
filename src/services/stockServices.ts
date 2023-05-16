@@ -60,16 +60,29 @@ async function updatePrices(csvFile: any) {
 
     if (newPrice < costPrice || diff > 10 || diff < -10) throw invalidPriceError();
 
-    const packItems = await stockRepository.getPackItens(productCode);
+    const packItens = await stockRepository.getPackByItens(productCode);
 
-    if (packItems.length > 0) {
+    if (packItens.length > 0) {
       const packPrice = newPrice;
 
-      for (const packItem of packItems) {
+      for (const packItem of packItens) {
         const packItemId = Number(packItem.product_id);
         const singlePrice = packPrice / Number(packItem.qty);
 
         await stockRepository.updatePrices(packItemId, singlePrice);
+      }
+    }
+
+    const itensPack = await stockRepository.getItensByPack(productCode);
+    if (itensPack.length > 0) {
+      const itemPrice = newPrice;
+
+      for (const itemPack of itensPack) {
+        const itemPackId = Number(itemPack.pack_id);
+        const totalPrice = itemPrice * Number(itemPack.qty);
+
+        console.log(itemPackId);
+        await stockRepository.updatePrices(itemPackId, totalPrice);
       }
     }
 
