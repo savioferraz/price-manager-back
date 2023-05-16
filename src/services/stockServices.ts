@@ -81,7 +81,6 @@ async function updatePrices(csvFile: any) {
         const itemPackId = Number(itemPack.pack_id);
         const totalPrice = itemPrice * Number(itemPack.qty);
 
-        console.log(itemPackId);
         await stockRepository.updatePrices(itemPackId, totalPrice);
       }
     }
