@@ -1,6 +1,6 @@
 # API Gerenciador de Preços
 
-Este é o back-end do Gerenciador de Preços, uma API REST desenvolvida com Node.js, Express.js e Typescript. A API pode receber arquivos .csv, transformar os dados para json, validar os dados e atualizar os preços no banco de dados.
+Este é o back-end do Gerenciador de Preços, uma API REST desenvolvida com Node.js, Express.js e Typescript. A API pode receber arquivos .csv, transformar os dados para json, validar os dados e atualizar os preços dos itens e pacotes no banco de dados.
 
 ## Índice
 
